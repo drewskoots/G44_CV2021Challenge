@@ -4,9 +4,9 @@
 app=UI();
 
 % %find all image files in the target_folder and count how many there are
-% imageFiles=dir([target_folder '/*.jpg']);
-% n_images=length(imageFiles);
-%
+imageFiles=dir([target_folder '/*.jpg']);
+n_images=length(imageFiles);
+
 
 %open each image in target_folder, and process it
 for k = 1 : n_images
@@ -47,7 +47,7 @@ points2= detectSURFFeatures(rotated);
 
 
 %match corresponding features
-index=matchFeatures(features1,features2,'MatchThreshold',25.0,'MaxRatio',0.6);
+index=matchFeatures(features1,features2,'MatchThreshold',25.0,'MaxRatio',0.7);
 
 matchedPoints1 = valid_points1(index(:,1));
 matchedPoints2 = valid_points2(index(:,2));
@@ -65,5 +65,5 @@ rot_registered = imwarp(rotated,tform,'OutputView',imref2d(size(original)));
 
 %show how the reconstructed image and the first one line up.
 figure
-imshowpair(original, rot_registered,'diff');
+im=imshowpair(original, rot_registered,'diff')
 
