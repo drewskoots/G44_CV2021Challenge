@@ -1,18 +1,22 @@
-% im_left = im2double(imread('pears.png')); % opening two example images
-% im_right = rgb2gray(imread('pears.png'));
+image_left = im2double(imread('pears.png')); % opening two example images
+image_right = rgb2gray(imread('pears.png'));
 
-function slider(ax,image_right,image_left)
+
 
 image_right = imresize(image_right, size(image_left, [1 2])); % making the dimensions equal
 
-%f = figure();
-ax = axes('Units', 'pixels');
-imshow(image_left);
+f = figure();
+ ax = axes('Units', 'pixels');
+imagesc(ax,image_left);
 hold(ax);
-im_handle = imshow(image_right);
+im_handle = imagesc(ax,image_right);
 im_handle.AlphaData = zeros(size(image_left, [1 2]));
+
 axes_pos = cumsum(ax.Position([1 3]));
 f.WindowButtonMotionFcn = {@cb,  size(image_left,2), im_handle, axes_pos};
+pause(0.1);
+
+
 function cb(obj, ~, im_width, im_handle, axes_pos)
     x_pos = obj.CurrentPoint(1);
     if x_pos > axes_pos(1) && x_pos < axes_pos(2)
@@ -27,4 +31,3 @@ function cb(obj, ~, im_width, im_handle, axes_pos)
     end
 end
 
-end
