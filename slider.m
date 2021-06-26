@@ -1,14 +1,18 @@
-im_left = im2double(imread('mordor.jpg')); % opening two example images
-im_right = rgb2gray(imread('mordor.jpg'));
-im_right = imresize(im_right, size(im_left, [1 2])); % making the dimensions equal
-f = figure();
+% im_left = im2double(imread('pears.png')); % opening two example images
+% im_right = rgb2gray(imread('pears.png'));
+
+function slider(ax,image_right,image_left)
+
+image_right = imresize(image_right, size(image_left, [1 2])); % making the dimensions equal
+
+%f = figure();
 ax = axes('Units', 'pixels');
-imshow(im_left);
+imshow(image_left);
 hold(ax);
-im_handle = imshow(im_right);
-im_handle.AlphaData = zeros(size(im_left, [1 2]));
+im_handle = imshow(image_right);
+im_handle.AlphaData = zeros(size(image_left, [1 2]));
 axes_pos = cumsum(ax.Position([1 3]));
-f.WindowButtonMotionFcn = {@cb,  size(im_left,2), im_handle, axes_pos};
+f.WindowButtonMotionFcn = {@cb,  size(image_left,2), im_handle, axes_pos};
 function cb(obj, ~, im_width, im_handle, axes_pos)
     x_pos = obj.CurrentPoint(1);
     if x_pos > axes_pos(1) && x_pos < axes_pos(2)
@@ -21,4 +25,6 @@ function cb(obj, ~, im_width, im_handle, axes_pos)
             clear xline
         end
     end
+end
+
 end
