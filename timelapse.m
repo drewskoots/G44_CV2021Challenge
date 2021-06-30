@@ -39,7 +39,7 @@ for k = 2 : n_images
     image_Array{k}=imwarp(color_image,tform,'OutputView',imref2d(size(ref_image,[1 2])));
     
 end 
-
+app.AnalyzeButton.BackgroundColor=[1,0.00,0.00];
 app.StatusField.Value='Playing timelapse. End playback to continue';
 
 while(~app.EndPlaybackButton.Value)
@@ -54,6 +54,6 @@ while(~app.EndPlaybackButton.Value)
     
 end
     app.EndPlaybackButton.Value=false;
-
+    app.AnalyzeButton.BackgroundColor=[0,1.00,0.00];
 end
 
