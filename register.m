@@ -8,7 +8,7 @@ function [tform, registered_image] = register(reference_image,moved_image, surf_
 %@Input: surf_flag true/false if SURF should be used instead of KAZE
 
 
-%detect features via surf and extract feature descriptors via BRISK
+%detect features via surf/KAZE depending on what option is passed to surf_flag
 if surf_flag
     points1= detectSURFFeatures(reference_image);
     points2= detectSURFFeatures(moved_image);
@@ -17,7 +17,7 @@ else
     points2= detectKAZEFeatures(moved_image);
 end
 
-
+%extract features from detected points via BRISK
 [features1,valid_points1] = extractFeatures(reference_image,points1,'Method', 'BRISK');
 [features2,valid_points2] = extractFeatures(moved_image,points2,'Method', 'BRISK');
 
@@ -29,9 +29,10 @@ else
     index=matchFeatures(features1,features2,'MatchThreshold',25.0,'MaxRatio',0.6);
 end
 
-
+%of the detected points, only select the matched ones.
 matchedPoints1 = valid_points1(index(:,1));
 matchedPoints2 = valid_points2(index(:,2));
+
 
 %Show the matching features and how the computer thinks they moved
 % figure

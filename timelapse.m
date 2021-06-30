@@ -34,7 +34,7 @@ for k = 2 : n_images
     end
     
     
-    [tform, ~]=register(ref_image,gray_image,0);
+    [tform, ~]=register(ref_image,gray_image,app.surf_flag);
     
     image_Array{k}=imwarp(color_image,tform,'OutputView',imref2d(size(ref_image,[1 2])));
     

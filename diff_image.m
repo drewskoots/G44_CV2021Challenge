@@ -14,7 +14,7 @@ second_im=imread(fullfile(app.target_folder,imageFiles(2).name));
 gray_first=rgb2gray(first_im);
 gray_second=rgb2gray(second_im);
 
-[tform,~]=register(gray_first, gray_second,0);
+[tform,~]=register(gray_first, gray_second,app.surf_flag);
 
 second_im_reg=imwarp(second_im,tform,'OutputView',imref2d(size(first_im,[1 2])));
 
