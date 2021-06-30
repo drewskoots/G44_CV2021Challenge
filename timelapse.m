@@ -38,8 +38,9 @@ for k = 2 : n_images
     
     image_Array{k}=imwarp(color_image,tform,'OutputView',imref2d(size(ref_image,[1 2])));
     
-    time_lapse(k)=im2frame(image_Array{k});
-end
+end 
+
+app.StatusField.Value='Playing timelapse. End playback to continue';
 
 while(~app.EndPlaybackButton.Value)
     
