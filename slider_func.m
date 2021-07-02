@@ -3,7 +3,8 @@ function slider_func(app, ax,image_right,image_left)
 
 
 image_right = imresize(image_right, size(image_left, [1 2])); % making the dimensions equal
-
+midx = size(image_right,2)/2;
+midy = size(image_right,1)/2;
 
 isBtnPressed = false;
 cir_radius = 50;
@@ -23,6 +24,13 @@ axes_pos = cumsum(ax.Position([1 3]));
 f.WindowButtonMotionFcn = {@cb_motion,  size(image_left,2), im_handle, cir_x, patch_handle, axes_pos};
 f.WindowButtonDownFcn = @cb_btnPressed
 f.WindowButtonUpFcn = @cb_btnReleased
+im_handle.AlphaData(:, 1:midx) = 0;
+im_handle.AlphaData(:, midx+1:end) = 1;
+patch_handle.Vertices(:,1) = cir_x + midx;
+h = text(midx-100,midy-100,'Drag me !','Color','w');
+pause(2);
+delete(h);
+
 function cb_motion(obj, ~, im_width, im_handle, cir_x, patch_handle, axes_pos)
     
     if isBtnPressed
