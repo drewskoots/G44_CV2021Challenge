@@ -6,11 +6,14 @@ function [outImage] = preprocesser(inImage)
 %   gausian kernal to reduce the noise. it gives back set of preprocessed
 %   images. 
 
-
+%convert the image to grayscale
   grayImage = rgb2gray(inImage);
-  filteredImage = imgaussfilt(grayImage);
-  T = adaptthresh(filteredImage, 0.4);
-  Binary = imbinarize(filteredImage,T);
-  outImage = uint8(255 * Binary);
+%filter image using adaptive threshholding
+  T = adaptthresh(grayImage, 0.4);
+  Binary = imbinarize(grayImage,T);
+
+%  using Gausian filter
+  filteredImage = imgaussfilt(Binary);
+  outImage = uint8(255 * filteredImage);
 
 
