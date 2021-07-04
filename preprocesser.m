@@ -13,7 +13,8 @@ function [outImage] = preprocesser(inImage)
   Binary = imbinarize(grayImage,T);
 
 %  using Gausian filter
-  filteredImage = imgaussfilt(Binary);
+  unit8Image =   uint8(255 * Binary);
+  filteredImage = imgaussfilt(unit8Image);
   outImage = uint8(255 * filteredImage);
 
 
