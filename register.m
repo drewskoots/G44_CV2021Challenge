@@ -1,4 +1,4 @@
-function [tform, registered_image] = register(reference_image,moved_image, surf_flag)
+function [tform, error_flag] = register(reference_image,moved_image, surf_flag)
 %REGISTER: aligns 2 images of the same object that have been rotated,
 %translated or scaled.
 
@@ -7,7 +7,8 @@ function [tform, registered_image] = register(reference_image,moved_image, surf_
 %orientation as reference_image
 %@Input: surf_flag true/false if SURF should be used instead of KAZE
 
-
+%initialize to no error
+error_flag=0;
 %detect features via surf/KAZE depending on what option is passed to surf_flag
 if surf_flag
     points1= detectSURFFeatures(reference_image);
@@ -39,17 +40,21 @@ matchedPoints2 = valid_points2(index(:,2));
  %showMatchedFeatures(original,rotated,matchedPoints1,matchedPoints2);
 
 %fit a transform between the points
-%try
+try
+
    tform = fitgeotrans(matchedPoints2.Location,matchedPoints1.Location,'NonreflectiveSimilarity');
-% catch exception
-%    pass
-% end
-
-
-
+   
+catch 
+    
+    msg='The image could not be successfully registered. Frame will be discarded.';
+    title='Registration Error';
+    uialert(fig,msg,title);
+    tform=[];
+    error_flag=1;
+end
 
 %apply the transform to the rotated image 
-registered_image = imwarp(moved_image,tform,'OutputView',imref2d(size(reference_image)));
+
 
 %show how the reconstructed image and the first one line up.
 %  figure

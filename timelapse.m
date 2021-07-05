@@ -34,10 +34,12 @@ for k = 2 : n_images
     end
     
     
-    [tform, ~]=register(ref_image,gray_image,app.surf_flag);
-    
-    image_Array{k}=imwarp(color_image,tform,'OutputView',imref2d(size(ref_image,[1 2])));
-    
+    [tform, error_flag]=register(ref_image,gray_image,app.surf_flag);
+    if error_flag
+        image_Array{k}=[];
+    else
+        image_Array{k}=imwarp(color_image,tform,'OutputView',imref2d(size(ref_image,[1 2])));
+    end
 end 
 app.AnalyzeButton.BackgroundColor=[1,0.00,0.00];
 app.StatusField.Value='Playing timelapse. End playback to continue';
