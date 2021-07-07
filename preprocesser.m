@@ -9,12 +9,12 @@ function [outImage] = preprocesser(inImage)
 %convert the image to grayscale
   grayImage = rgb2gray(inImage);
 %filter image using adaptive threshholding
-  T = adaptthresh(grayImage, 0.4);
-  Binary = imbinarize(grayImage,T);
-
-%  using Gaussian filter
-  unit8Image = uint8(255 * Binary);
-  filteredImage = imgaussfilt(unit8Image);
-  outImage = uint8(255 * filteredImage);
+%   T = adaptthresh(grayImage, 0.4);
+%   Binary = imbinarize(grayImage,T);
+% 
+% %  using Gaussian filter
+%   unit8Image = uint8(255 * Binary);
+%   filteredImage = imgaussfilt(unit8Image);
+%   outImage = uint8(255 * filteredImage);
 
 
