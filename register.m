@@ -7,6 +7,8 @@ function [tform, error_flag] = register(reference_image,moved_image, surf_flag)
 %orientation as reference_image
 %@Input: surf_flag true/false if SURF should be used instead of KAZE
 
+%Author:Andrew Madden
+%%%%%%%%
 %initialize to no error
 error_flag=0;
 %detect features via surf/KAZE depending on what option is passed to surf_flag

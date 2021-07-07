@@ -1,5 +1,4 @@
-function segm(originalImage)
-
+function segmentation(originalImage)
 
 captionFontSize = 14;
 
