@@ -5,16 +5,23 @@ function [outImage] = preprocesser(inImage)
 %   then convert them to grayscale and apply adaptive threshhollding then
 %   gausian kernal to reduce the noise. it gives back set of preprocessed
 %   images. 
+%Gamma correction
+outImage = = lin2rgb(inImage);
+
+%contrast enhancment
+outImage = = adapthisteq(outImage);
 
 %convert the image to grayscale
-  grayImage = rgb2gray(inImage);
-%filter image using adaptive threshholding
-%   T = adaptthresh(grayImage, 0.4);
-%   Binary = imbinarize(grayImage,T);
-% 
-% %  using Gaussian filter
-%   unit8Image = uint8(255 * Binary);
-%   filteredImage = imgaussfilt(unit8Image);
-%   outImage = uint8(255 * filteredImage);
+outImage = rgb2gray(outImage);
+  
+
+
+%filtering the image
+sigma = 30;
+outImage = imflatfield(outImage,sigma);
+
+
+
+
 
 
