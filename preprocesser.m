@@ -5,16 +5,19 @@ function [outImage] = preprocesser(inImage)
 %   then convert them to grayscale and apply adaptive threshhollding then
 %   gausian kernal to reduce the noise. it gives back set of preprocessed
 %   images. 
-%Gamma correction
-outImage = = lin2rgb(inImage);
+% %Gamma correction
+% outImage = lin2rgb(inImage);
+% 
 
-%contrast enhancment
-outImage = = adapthisteq(outImage);
 
 %convert the image to grayscale
-outImage = rgb2gray(outImage);
-  
 
+if size(inImage,3)~=1
+   outImage = rgb2gray(inImage); 
+end
+
+%contrast enhancment
+outImage = adapthisteq(outImage);
 
 %filtering the image
 sigma = 30;
