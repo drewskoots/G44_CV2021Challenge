@@ -33,5 +33,3 @@ After the images have been analyzed, you can choose various ways of evaluating t
 ## Output Section:
 After selecting a dataset the “Analyze” (12) button will change its color from red to green. This gives the green light for the application to start by clicking this button. Besides, keep an eye on the “Progress bar” (13) beneath the button which will guide the user throughout the whole experience of using the app. Depending on the settings chosen, the output (9) will display the corresponding visualization.
 
-
-Dialog box: As we all hate reading the documentation of a tool, a Welcome Dialog Box has been added to the app for the convenience of the user. This will pop up when the app opens and will provide a welcome message and instructions to how and where to proceed further. The users will have the choice of either closing this window or keeping it aside as they use the app.
