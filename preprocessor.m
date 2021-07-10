@@ -1,8 +1,8 @@
 function [outImage] = preprocessor(inImage)
-% this function takes an input images and preform a set of processes on it to enhance the feature detecting and segmantation
+% this function takes input images and performs a set of processes on it to enhance the feature detection and segmentation
 % input is rgb image 
 % output is grayscale filtered image
-%  processes are: gamma correction, conversion to grayscle, contrast enhancment, and filtering the image to discard the noise 
+%  processes are: gamma correction, conversion to grayscale, contrast enhancement, and filtering the image to discard the noise
 %Author:Esam Hassan
 
 % %Gamma correction
