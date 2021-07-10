@@ -23,11 +23,11 @@ The app will enable the user to switch between 4 different mode of changes in tw
 
 ## Visualization Type: 
 After the images have been analyzed, you can choose various ways of evaluating the dataset. Using the list box (8), the user will be able to choose one of three visualization modes and the application will update accordingly:
-1. Timelapse: this is the default option. The idea behind this visualization mode is to parse the images of the selected location and perceive the slight change that keeps happening over a period of time. When this mode is selected, a parameters box under the output area will appear and it will be possible to end the time-lapse via “End Playback” button and to change the “FPS” (i.e Frame Per Second) of the output. Per default, the value of FPS is set to 1 frame per second.
+1. Timelapse: This is the default option. The idea behind this visualization mode is to parse the images of the selected location and perceive the slight change that keeps happening over a period of time. When this mode is selected, a parameters box under the output area will appear and it will be possible to end the time-lapse via “End Playback” button and to change the “FPS” (i.e Frame Per Second) of the output. Per default, the value of FPS is set to 1 frame per second.
 
 2. Slider: The slider option allows the user to easily navigate between two images of the same location but from different years, this option was implemented in order to make it easier for the user to perceive the shifts in landscape that may occur. When clicking on the slider option, a slider will appear under the image. Moving or dragging the slider will display parts of the images side by side. 
                 
-3. Difference Image: this option will display the difference between the first and last image in the sequence to highlight the difference that occurred in the whole time period. Dark areas signify areas with high amounts of change between the images, while lighter areas signify less change. Furthermore, if the color has shifted over time, the shade of color change will also be displayed.
+3. Difference Image: This option will display the difference between the first and last image in the sequence to highlight the difference that occurred in the whole time period. Dark areas signify areas with high amounts of change between the images, while lighter areas signify less change. Furthermore, if the color has shifted over time, the shade of color change will also be displayed.
 4. Segmentation @sherif
 
 ## Output Section:
