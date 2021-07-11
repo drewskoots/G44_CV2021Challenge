@@ -9,7 +9,7 @@ buildMaskLandscape = 0;
 blobMeasurements_Urban =0;
 %%landspace mask
 if contentType == 0
-
+    
     % Threshold the image to get a binary image
     thresholdValue = 120;
     binaryImage = originalImage > thresholdValue; % Bright objects will be chosen if you use >.
@@ -37,7 +37,7 @@ if contentType == 0
     buildMaskLandscape = uint8(redMask & greenMask & blueMask);
     buildingBlobs = regionprops(buildMaskLandscape, originalImage, 'all');
     [maxArea_b,~] = max([buildingBlobs.Area]);
-    if maxArea_b > 90000
+    if maxArea_b > 70000
         isBuildingLandscape = 1;
     end
 else
@@ -46,7 +46,7 @@ else
     redBand = original(:, :, 1);
     greenBand = original(:, :, 2);
     blueBand = original(:, :, 3);
-
+    
     
     % houses color
     % Haus orange
@@ -82,7 +82,7 @@ else
         isForest = 1;
     end
     
-
+    
     if isForest == 1
         binaryImage = not(binaryImage_g);
     else
@@ -97,10 +97,10 @@ if contentType == 0
     labeledImage = imgaussfilt(labeledImage,2);
     % try to fill holes
     labeledImage = imfill(labeledImage,"holes");
-else 
+else
     labeledImage = imgaussfilt(labeledImage,1);
-end    
-% binarize the now blurried image with filled holes 
+end
+% binarize the now blurried image with filled holes
 labeledImage = imbinarize(labeledImage, 0.1);
 
 
@@ -108,11 +108,11 @@ labeledImage = imbinarize(labeledImage, 0.1);
 if isBuildingLandscape == 1
     labeledImage_Urban = bwlabel(buildMaskLandscape, 8);
     labeledImage_Urban = imgaussfilt(labeledImage_Urban,1);
-    % binarize the now blurried image with filled holes 
+    % binarize the now blurried image with filled holes
     labeledImage_Urban = imbinarize(labeledImage_Urban, 0.1);
     % Get all the blob properties.
     blobMeasurements_Urban = regionprops(labeledImage_Urban, originalImage, 'all');
-end    
+end
 
 
 % Get all the blob properties.
@@ -123,27 +123,25 @@ numberOfBlobs = size(blobMeasurements, 1);
 
 
 % Plot the borders .
-
 imagesc(axes,original);
-% title('segmentation', captionFontSize); 
-% axis image; % Make sure image is not artificially stretched because of screen's aspect ratio.
+
 hold(axes,'on');
 boundaries = bwboundaries(labeledImage);
 numberOfBoundaries = size(boundaries, 1);
 for k = 1 : numberOfBoundaries
-	thisBoundary = boundaries{k};
-	plot(axes,thisBoundary(:,2), thisBoundary(:,1), 'r', 'LineWidth', 2);
+    thisBoundary = boundaries{k};
+    plot(axes,thisBoundary(:,2), thisBoundary(:,1), 'r', 'LineWidth', 2);
 end
 
 
 %% plot Urban area
 if isBuildingLandscape == 1
-boundaries = bwboundaries(labeledImage_Urban);
-numberOfBoundaries = size(boundaries, 1);
-for k = 1 : numberOfBoundaries
-	thisBoundary = boundaries{k};
-	plot(axes, thisBoundary(:,2), thisBoundary(:,1), 'g', 'LineWidth', 1);
-end
+    boundaries = bwboundaries(labeledImage_Urban);
+    numberOfBoundaries = size(boundaries, 1);
+    for k = 1 : numberOfBoundaries
+        thisBoundary = boundaries{k};
+        plot(axes, thisBoundary(:,2), thisBoundary(:,1), 'g', 'LineWidth', 1);
+    end
 end
 if contentType == 0
     %plot Urban in landspcae maps
@@ -151,21 +149,21 @@ if contentType == 0
         [maxArea_U,max_index_U] = max([blobMeasurements_Urban.Area]);
         max_centroid_U = cat(1,blobMeasurements_Urban(max_index_U).Centroid);
         % Put the "blob number" labels on the "boundaries" grayscale image.
-        text(axes, max_centroid_U(:,1), max_centroid_U(:,2), 'Urban', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','g'); 
-    end    
+        text(axes, max_centroid_U(:,1), max_centroid_U(:,2), 'Urban', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','g');
+    end
     %% Plot the Sea in the max zeroColor area
     [maxArea,max_index] = max([zeroColorArea.Area]);
     max_centroid_s = cat(1,zeroColorArea(max_index).Centroid);
     % Put the "blob number" labels on the "boundaries" grayscale image.
     text(axes, max_centroid_s(:,1), max_centroid_s(:,2), 'Sea', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
-
+    
     %% Plot The Empty earth
     [maxArea,max_index] = max([blobMeasurements.Area]);
     max_centroid_e = cat(1,blobMeasurements(max_index).Centroid);
     % Put the "blob number" labels on the "boundaries" grayscale image.
-    text(axes, max_centroid_e(:,1), max_centroid_e(:,2), 'Land', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');    
+    text(axes, max_centroid_e(:,1), max_centroid_e(:,2), 'Land', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
 else
-      
+    
     %% Plot image structure
     %Mask
     [maxArea,max_index] = max([blobMeasurements.Area]);
@@ -175,17 +173,17 @@ else
     max_centroid_u_N = cat(1,zeroColorArea(max_index_N).Centroid);
     
     if isForest == 0
-        if maxArea_N > 9500000
+        if maxArea_N > 950000
             text(axes, max_centroid_u_N(:,1), max_centroid_u_N(:,2), 'Empty area', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
         end
         %Put the "blob number" labels on the "boundaries" grayscale image.
         text(axes, max_centroid_u(:,1), max_centroid_u(:,2), 'Buildings', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
     else
-        if maxArea_N > 9500000
+        if maxArea_N > 950000
             text(axes, max_centroid_u_N(:,1), max_centroid_u_N(:,2), 'Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
         end
         text(axes, max_centroid_u(:,1), max_centroid_u(:,2), 'Empty Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
     end
-hold(axes, 'off');
-
+    hold(axes, 'off');
+    
 end
