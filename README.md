@@ -19,7 +19,7 @@ The app will enable the user to switch between 4 different mode of changes in tw
 1. Image quality (6): If the dataset to be analyzed is good quality (all the images are oriented almost the same way, exposure is very similar, no perspective skew etc.) use the 'Faster' option. If the default 'Faster' option does not provide satisfactory results, switching to 'Robust' adds an extra preprocessing step and uses a different, more robust algorithm at the expense of processing time. The names of the algorithms used are shown in parentheses so that the Computer Vision audience gets a better understanding of what’s happening behind the scenes.
                 
 2. Timespan (3): If you wish to examine short term changes (ones that will be apparent between 2 consecutive images, select the default option 'short term.' Then, you will be able to pic any of the dataset images in the "Image to use as reference" dropdown (4) and compare it with the image directly after it. If you wish to examine longer term, more gradual change, select long term. This will automatically select the first and last image in the dataset to compare.
-3. Image Content(5): This option is specifically for the Segmentation visualization
+3. Image Content(5): This function is specifically for the segmentation visualization. It changes the algorithm from detecting ocean and coastlines or detecting changes in images of urban areas.
 
 ## Visualization Type: 
 After the images have been analyzed, you can choose various ways of evaluating the dataset. Using the list box (8), the user will be able to choose one of three visualization modes and the application will update accordingly:
@@ -28,7 +28,7 @@ After the images have been analyzed, you can choose various ways of evaluating t
 2. Slider: The slider option allows the user to easily navigate between two images of the same location but from different years, this option was implemented in order to make it easier for the user to perceive the shifts in landscape that may occur. When clicking on the slider option, a slider will appear under the image. Moving or dragging the slider will display parts of the images side by side. 
                 
 3. Difference Image: This option will display the difference between the first and last image in the sequence to highlight the difference that occurred in the whole time period. Dark areas signify areas with high amounts of change between the images, while lighter areas signify less change. Furthermore, if the color has shifted over time, the shade of color change will also be displayed.
-4. Segmentation: This function is specifically for the segmentation visualization. It changes the algorithm from detecting ocean and coastlines or detecting changes in images of urban areas.
+4. Segmentation: This visualisation method will take the image currently selected and perform segmentation analysis on it. Since there is a lot of output, this result opens in a new window. Depeding on the image content setting, it will try to identify either land and water along coastlines or buildings within cities and highlight them. 
 
 ## Output Section:
 After selecting a dataset the “Analyze” (12) button will change its color from red to green. This gives the green light for the application to start by clicking this button. Besides, keep an eye on the “Progress bar” (13) beneath the button which will guide the user throughout the whole experience of using the app. Depending on the settings chosen, the output (9) will display the corresponding visualization.
