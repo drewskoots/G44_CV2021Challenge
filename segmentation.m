@@ -1,4 +1,4 @@
-function segmentation(originalImage, contentType, axes)
+function segm(originalImage, contentType)
 
 original = originalImage;
 captionFontSize = 14;
@@ -123,6 +123,7 @@ numberOfBlobs = size(blobMeasurements, 1);
 
 
 % Plot the borders .
+
 imagesc(axes,original);
 
 hold(axes,'on');
@@ -131,16 +132,18 @@ numberOfBoundaries = size(boundaries, 1);
 for k = 1 : numberOfBoundaries
     thisBoundary = boundaries{k};
     plot(axes,thisBoundary(:,2), thisBoundary(:,1), 'r', 'LineWidth', 2);
+
 end
 
-
 %% plot Urban area
+
 if isBuildingLandscape == 1
     boundaries = bwboundaries(labeledImage_Urban);
     numberOfBoundaries = size(boundaries, 1);
     for k = 1 : numberOfBoundaries
         thisBoundary = boundaries{k};
         plot(axes, thisBoundary(:,2), thisBoundary(:,1), 'g', 'LineWidth', 1);
+
     end
 end
 if contentType == 0
@@ -149,12 +152,15 @@ if contentType == 0
         [maxArea_U,max_index_U] = max([blobMeasurements_Urban.Area]);
         max_centroid_U = cat(1,blobMeasurements_Urban(max_index_U).Centroid);
         % Put the "blob number" labels on the "boundaries" grayscale image.
+
         text(axes, max_centroid_U(:,1), max_centroid_U(:,2), 'Urban', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','g');
     end
+
     %% Plot the Sea in the max zeroColor area
     [maxArea,max_index] = max([zeroColorArea.Area]);
     max_centroid_s = cat(1,zeroColorArea(max_index).Centroid);
     % Put the "blob number" labels on the "boundaries" grayscale image.
+
     text(axes, max_centroid_s(:,1), max_centroid_s(:,2), 'Sea', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
     
     %% Plot The Empty earth
@@ -162,6 +168,7 @@ if contentType == 0
     max_centroid_e = cat(1,blobMeasurements(max_index).Centroid);
     % Put the "blob number" labels on the "boundaries" grayscale image.
     text(axes, max_centroid_e(:,1), max_centroid_e(:,2), 'Land', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+
 else
     
     %% Plot image structure
@@ -175,15 +182,17 @@ else
     if isForest == 0
         if maxArea_N > 950000
             text(axes, max_centroid_u_N(:,1), max_centroid_u_N(:,2), 'Empty area', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+
         end
         %Put the "blob number" labels on the "boundaries" grayscale image.
-        text(axes, max_centroid_u(:,1), max_centroid_u(:,2), 'Buildings', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+        text(max_centroid_u(:,1), max_centroid_u(:,2), 'Buildings', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
     else
         if maxArea_N > 950000
             text(axes, max_centroid_u_N(:,1), max_centroid_u_N(:,2), 'Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
         end
-        text(axes, max_centroid_u(:,1), max_centroid_u(:,2), 'Empty Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+        text(max_centroid_u(:,1), max_centroid_u(:,2), 'Empty Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
     end
+
     hold(axes, 'off');
     
 end
