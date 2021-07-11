@@ -10,7 +10,7 @@ The Graphical User Interface (GUI) allows the user to interact with the applicat
 ## Dataset Selection:
 Here the user will browse the data set folder that consists of a sequence of images (must be in .jpg format!) by pressing the “Select Dataset” (1) button. The folder path chosen will be displayed on the “Current path” (2) box. Once a dataset has been selected, the Load and Prepare Dataset button (7) will turn green. Once the desired settings (see below) have been selected, push this button to prepare the images for visualization.
 
-##Load and Prepare Dataset:
+## Load and Prepare Dataset:
 When this button is pressed, if a path to a suitable folder has been selected, the program will load all the images in the folder and try to align them into the same orientation. It will also prepare a few things to make visualisation easier later. This step can take quite a while, so please be patient. The status indicator (13) under the analyze button (12) will provide information about the current status of the program.
 
 ## Mode of change: 
