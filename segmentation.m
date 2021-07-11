@@ -1,4 +1,4 @@
-function segm(originalImage, contentType)
+function segmentation(originalImage, contentType)
 
 original = originalImage;
 captionFontSize = 14;
@@ -259,7 +259,7 @@ message = sprintf('Now I will plot the centroids over the original image in the 
 reply = questdlg(message, 'Plot Centroids?', 'OK', 'Cancel', 'Cancel');
 % Note: reply will = '' for Upper right X, 'OK' for OK, and 'Cancel' for Cancel.
 if strcmpi(reply, 'Cancel')
-	return;
+	return;fourf33
 end
 subplot(3, 3, 1);
 hold on; % Don't blow away image.
