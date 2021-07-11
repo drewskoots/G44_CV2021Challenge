@@ -1,4 +1,4 @@
-function segm(originalImage, contentType)
+function segmentation(originalImage, contentType, axes)
 
 original = originalImage;
 captionFontSize = 14;
@@ -123,24 +123,27 @@ numberOfBlobs = size(blobMeasurements, 1);
 
 
 % Plot the borders .
-figure;
-imshow(original);
-title('segmentation', captionFontSize); 
-axis image; % Make sure image is not artificially stretched because of screen's aspect ratio.
-hold on;
+
+imagesc(axes,original);
+% title('segmentation', captionFontSize); 
+% axis image; % Make sure image is not artificially stretched because of screen's aspect ratio.
+hold(axes,'on');
 boundaries = bwboundaries(labeledImage);
 numberOfBoundaries = size(boundaries, 1);
 for k = 1 : numberOfBoundaries
 	thisBoundary = boundaries{k};
-	plot(thisBoundary(:,2), thisBoundary(:,1), 'r', 'LineWidth', 2);
+	plot(axes,thisBoundary(:,2), thisBoundary(:,1), 'r', 'LineWidth', 2);
 end
 
+
 %% plot Urban area
+if isBuildingLandscape == 1
 boundaries = bwboundaries(labeledImage_Urban);
 numberOfBoundaries = size(boundaries, 1);
 for k = 1 : numberOfBoundaries
 	thisBoundary = boundaries{k};
-	plot(thisBoundary(:,2), thisBoundary(:,1), 'g', 'LineWidth', 1);
+	plot(axes, thisBoundary(:,2), thisBoundary(:,1), 'g', 'LineWidth', 1);
+end
 end
 if contentType == 0
     %plot Urban in landspcae maps
@@ -148,19 +151,19 @@ if contentType == 0
         [maxArea_U,max_index_U] = max([blobMeasurements_Urban.Area]);
         max_centroid_U = cat(1,blobMeasurements_Urban(max_index_U).Centroid);
         % Put the "blob number" labels on the "boundaries" grayscale image.
-        text(max_centroid_U(:,1), max_centroid_U(:,2), 'Urban', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','g'); 
+        text(axes, max_centroid_U(:,1), max_centroid_U(:,2), 'Urban', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','g'); 
     end    
     %% Plot the Sea in the max zeroColor area
     [maxArea,max_index] = max([zeroColorArea.Area]);
     max_centroid_s = cat(1,zeroColorArea(max_index).Centroid);
     % Put the "blob number" labels on the "boundaries" grayscale image.
-    text(max_centroid_s(:,1), max_centroid_s(:,2), 'Sea', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+    text(axes, max_centroid_s(:,1), max_centroid_s(:,2), 'Sea', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
 
     %% Plot The Empty earth
     [maxArea,max_index] = max([blobMeasurements.Area]);
     max_centroid_e = cat(1,blobMeasurements(max_index).Centroid);
     % Put the "blob number" labels on the "boundaries" grayscale image.
-    text(max_centroid_e(:,1), max_centroid_e(:,2), 'Land', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');    
+    text(axes, max_centroid_e(:,1), max_centroid_e(:,2), 'Land', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');    
 else
       
     %% Plot image structure
@@ -168,21 +171,21 @@ else
     [maxArea,max_index] = max([blobMeasurements.Area]);
     max_centroid_u = cat(1,blobMeasurements(max_index).Centroid);
     % ZeroColor mask
-    [maxArea_N,max_index_N] = max([zeroColorArea.Area])
+    [maxArea_N,max_index_N] = max([zeroColorArea.Area]);
     max_centroid_u_N = cat(1,zeroColorArea(max_index_N).Centroid);
     
     if isForest == 0
         if maxArea_N > 9500000
-            text(max_centroid_u_N(:,1), max_centroid_u_N(:,2), 'Empty area', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+            text(axes, max_centroid_u_N(:,1), max_centroid_u_N(:,2), 'Empty area', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
         end
         %Put the "blob number" labels on the "boundaries" grayscale image.
-        text(max_centroid_u(:,1), max_centroid_u(:,2), 'Buildings', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+        text(axes, max_centroid_u(:,1), max_centroid_u(:,2), 'Buildings', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
     else
         if maxArea_N > 9500000
-            text(max_centroid_u_N(:,1), max_centroid_u_N(:,2), 'Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+            text(axes, max_centroid_u_N(:,1), max_centroid_u_N(:,2), 'Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
         end
-        text(max_centroid_u(:,1), max_centroid_u(:,2), 'Empty Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
+        text(axes, max_centroid_u(:,1), max_centroid_u(:,2), 'Empty Forest', 'FontSize', 16, 'FontWeight', 'Bold', 'Color','k');
     end
-hold off;
+hold(axes, 'off');
 
 end
